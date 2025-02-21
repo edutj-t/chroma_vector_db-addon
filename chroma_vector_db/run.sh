@@ -17,5 +17,5 @@ else
 fi
 export S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 # Start ChromaDB properly as PID 1
-bashio::log.info "Starting Chroma..."
+echo "Starting Chroma Vector DB add-on..."
 exec chromadb run --host 0.0.0.0 --port "${PORT}"
