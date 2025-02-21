@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bashio
+#!/usr/bin/with-contenv bash
 set -e
 
 bashio::log.info "Starting Chroma Vector DB add-on"
