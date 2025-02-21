@@ -6,10 +6,7 @@ ENV LANG C.UTF-8
 # Install Python 3, pip, and additional build dependencies needed to compile chromadb
 RUN apk add --no-cache python3 py3-pip build-base cargo
 
-# Upgrade pip using python3 -m pip (this avoids issues with the pip command)
-RUN python3 -m pip install --upgrade pip
-
-# Pre-install chromadb from PyPI
+# Pre-install chromadb from PyPI using the existing pip version
 RUN python3 -m pip install --no-cache-dir chromadb
 
 # Create the s6 service directory for Chroma
@@ -22,6 +19,6 @@ RUN chmod +x /etc/services.d/chroma/run
 # (Optional) Document that port 8000 is used
 EXPOSE 8000
 
-# Ensure s6-overlay (already in addon-base) runs as PID 1
+# Use s6-overlay (already in addon-base) as PID 1
 ENTRYPOINT [ "/init" ]
 CMD []
