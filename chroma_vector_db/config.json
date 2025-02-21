@@ -10,8 +10,8 @@
     "port": 8000
   },
   "schema": {
-    "chroma_version": "string",
-    "port": "int"
+    "chroma_version": "str",
+    "port": "port"
   },
   "ports": {
     "8000/tcp": 8000
