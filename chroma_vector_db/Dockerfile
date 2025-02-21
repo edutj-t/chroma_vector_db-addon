@@ -1,21 +1,23 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/addon-base:alpine-3.18
+ARG BUILD_FROM=ghcr.io/home-assistant/addon-base:debian-11
 FROM ${BUILD_FROM}
 
 ENV LANG C.UTF-8
 
-# Install Python, pip, and the build dependencies required for chromadb (which uses Rust)
-RUN apk add --no-cache \
+# Update package lists and install required packages
+RUN apt-get update && apt-get install -y \
     python3 \
-    py3-pip \
-    build-base \
-    rust \
-    cargo \
-    musl-dev \
+    python3-pip \
+    build-essential \
     libffi-dev \
-    openssl-dev
+    libssl-dev \
+    cargo \
+    && rm -rf /var/lib/apt/lists/*
 
-# Pre-install chromadb from PyPI
-RUN python3 -m pip install --no-cache-dir chromadb
+# Upgrade pip
+RUN python3 -m pip install --upgrade pip
+
+# Pre-install a pinned version of chromadb (adjust the version if needed)
+RUN python3 -m pip install --no-cache-dir chromadb==0.3.21
 
 # Create the s6 service directory for Chroma
 RUN mkdir -p /etc/services.d/chroma
@@ -24,9 +26,9 @@ RUN mkdir -p /etc/services.d/chroma
 COPY run.sh /etc/services.d/chroma/run
 RUN chmod +x /etc/services.d/chroma/run
 
-# Document that port 8000 is used (the actual binding is managed by Home Assistant)
+# Expose port 8000 (the actual binding is managed by Home Assistant)
 EXPOSE 8000
 
-# Use the base image's /init as PID 1 (s6-overlay)
+# Use s6-overlay (provided by the base image) as PID 1
 ENTRYPOINT [ "/init" ]
 CMD []
