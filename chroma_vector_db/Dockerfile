@@ -3,19 +3,23 @@ FROM ${BUILD_FROM}
 
 ENV LANG C.UTF-8
 
-# Install Python 3 and pip if needed
+# Install Python 3 and pip (if needed)
 RUN apk add --no-cache python3 py3-pip
+
+# Pre-install chromadb from PyPI.
+# This avoids running pip install at runtime, which can trigger s6-overlay-suexec errors.
+RUN pip install --no-cache-dir chromadb
 
 # Create the s6 service directory for Chroma
 RUN mkdir -p /etc/services.d/chroma
 
-# Copy run.sh into that service directory
+# Copy run.sh into the s6 service directory
 COPY run.sh /etc/services.d/chroma/run
 RUN chmod +x /etc/services.d/chroma/run
 
-# (Optional) Document that port 8000 is used
+# (Optional) Document that port 8000 is used.
 EXPOSE 8000
 
-# Ensure s6-overlay (already in addon-base) runs as PID 1
+# Let the base image’s /init run as PID 1, which automatically runs services in /etc/services.d.
 ENTRYPOINT [ "/init" ]
 CMD []
