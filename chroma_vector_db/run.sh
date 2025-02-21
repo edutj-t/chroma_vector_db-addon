@@ -18,4 +18,4 @@ fi
 
 # Start ChromaDB as PID 1
 bashio::log.info "Starting Chroma..."
-exec chromadb run --host 0.0.0.0 --port "${PORT}"
+exec python3 -m chromadb run --host 0.0.0.0 --port "${PORT}"
