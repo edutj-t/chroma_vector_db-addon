@@ -6,11 +6,11 @@ ENV LANG C.UTF-8
 # Install Python 3, pip, and additional build dependencies needed to compile chromadb
 RUN apk add --no-cache python3 py3-pip build-base cargo
 
-# Upgrade pip to the latest version (helps with building packages)
-RUN pip install --upgrade pip
+# Upgrade pip using python3 -m pip (this avoids issues with the pip command)
+RUN python3 -m pip install --upgrade pip
 
 # Pre-install chromadb from PyPI
-RUN pip install --no-cache-dir chromadb
+RUN python3 -m pip install --no-cache-dir chromadb
 
 # Create the s6 service directory for Chroma
 RUN mkdir -p /etc/services.d/chroma
