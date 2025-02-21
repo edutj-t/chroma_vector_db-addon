@@ -15,4 +15,5 @@ RUN chmod a+x /run.sh
 EXPOSE 8000
 
 # Run the add-on
-CMD [ "/run.sh" ]
+ENTRYPOINT [ "/init" ]
+CMD []
