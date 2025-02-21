@@ -1,13 +1,12 @@
-# Use the Home Assistant add-on base image
-ARG BUILD_FROM
-FROM $BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/addon-base:latest
+FROM ${BUILD_FROM}
 
 # Set locale
 ENV LANG C.UTF-8
+
 # Install Python and pip if necessary
-RUN \
-  apk add --no-cache \
-    python3 py3-pip
+RUN apk add --no-cache python3 py3-pip
+
 # Copy the run script into the container
 COPY run.sh /
 RUN chmod a+x /run.sh
