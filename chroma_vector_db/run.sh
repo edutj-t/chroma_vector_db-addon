@@ -16,6 +16,6 @@ else
     pip install --no-cache-dir --upgrade chromadb=="${CHROMA_VERSION}"
 fi
 
-# Start ChromaDB server properly
+# Start ChromaDB properly as PID 1
 bashio::log.info "Starting Chroma..."
 exec chromadb run --host 0.0.0.0 --port "${PORT}"
