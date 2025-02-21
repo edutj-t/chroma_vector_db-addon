@@ -4,7 +4,7 @@ FROM ${BUILD_FROM}
 
 # Set locale
 ENV LANG C.UTF-8
-
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 # Install Python and pip if necessary
 RUN apk add --no-cache python3 py3-pip
 
