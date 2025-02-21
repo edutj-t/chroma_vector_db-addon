@@ -1,0 +1,25 @@
+{
+  "name": "Chroma Vector DB",
+  "version": "1.0.0",
+  "slug": "chroma_vector_db",
+  "description": "A Home Assistant add-on for running the Chroma Vector Database",
+  "startup": "services",
+  "boot": "auto",
+  "options": {
+    "chroma_version": "latest",
+    "port": 8000
+  },
+  "schema": {
+    "chroma_version": "string",
+    "port": "int"
+  },
+  "ports": {
+    "8000/tcp": 8000
+  },
+  "arch": [
+    "armv7",
+    "armhf",
+    "aarch64",
+    "amd64"
+  ]
+}
