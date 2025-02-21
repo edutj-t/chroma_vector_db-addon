@@ -1,6 +1,6 @@
 {
   "name": "Chroma Vector DB",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "slug": "chroma_vector_db",
   "description": "A Home Assistant add-on for running the Chroma Vector Database",
   "startup": "services",
